@@ -13,31 +13,35 @@ window.onload = function() {
     var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
     computerGuess.push(compGuess);
     console.log('Computer chose ' + computerGuess[0]);
-    return computerGuess;
 }
 
 // this function is run whenever the user presses a key
 document.onkeyup = function(event) {
     var userInput = event.key.toLowerCase();
     currentTries.push(userInput);
-    console.log(userInput);
+    console.log(computerGuess[0]);
 
 if ((userInput === computerGuess[0]) && (guessesLeft > 0)) {
     wins++;
     alert('You guessed correctly!');
     guessesLeft= 9;
+    currentTries.length = 0;
+    computerGuess.length = 0;
     var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
     computerGuess.push(compGuess);
- } else {
+ } else if ((userInput !== computerGuess[0]) && (guessesLeft > 0)) {
     guessesLeft--;
-
-    if (guessesLeft < 1) {
-        losses++;
-        guessesLeft = 9;
-        updateScore();
-        currentTries = "";
-    }
+  }
+  else {
+    losses++;
+    guessesLeft = 9;
+    currentTries.length = 0;
+    computerGuess.length = 0;
+    var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
+    computerGuess.push(compGuess);
+    console.log(computerGuess[0]);
  }
+
 
 var html = "<p>Guess  what letter I'm thinking of</p>" +
 "<div class='scoreboard' id='wins'>Wins: " + wins + "</div><br>" +
