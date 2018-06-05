@@ -9,36 +9,25 @@ var guessesLeft = 9;
 var currentTries = [];
 var computerGuess = [];
 
-window.onload = function() {
-    var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
-    computerGuess.push(compGuess);
-    console.log('Computer chose ' + computerGuess[0]);
-}
-
 // this function is run whenever the user presses a key
 document.onkeyup = function(event) {
-    var userInput = event.key.toLowerCase();
-    currentTries.push(userInput);
-    console.log(computerGuess[0]);
+    var userInput = event.key.toLowerCase(); // taking in user input
+    var computerGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)]; //computer selects letter
+    currentTries.push(userInput); // pushing user guess to current tries
 
-if ((userInput === computerGuess[0]) && (guessesLeft > 0)) {
+    if ((userInput === computerGuess) && (guessesLeft > 0)) {
     wins++;
     alert('You guessed correctly!');
-    guessesLeft= 9;
-    currentTries.length = 0;
-    computerGuess.length = 0;
-    var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
-    computerGuess.push(compGuess);
- } else if ((userInput !== computerGuess[0]) && (guessesLeft > 0)) {
+    guessesLeft= 9; // resets guesses back to 9
+    currentTries.length = 0; // removes everything from current tries array for new round
+
+ } else if ((userInput !== computerGuess) && (guessesLeft > 0)) {
     guessesLeft--;
   }
-  else {
+  else if (guessesLeft === 0) {
     losses++;
     guessesLeft = 9;
     currentTries.length = 0;
-    computerGuess.length = 0;
-    var compGuess = possibleLetters[Math.floor(Math.random() * possibleLetters.length)];
-    computerGuess.push(compGuess);
     console.log(computerGuess[0]);
  }
 
